@@ -22,7 +22,7 @@ const gameRounds = {};
 const fetchImage = async (lat, lon) => {
 
     const url = `https://dev.virtualearth.net/REST/v1/Imagery/Map/AerialWithLabels/${lat},${lon}/8?mapSize=2000,1000&pp=${lat},${lon};47&key=${process.env.BING_API_KEY}`;
-    console.log(url,process.env.BING_API_KEY)
+    console.log(url, process.env.BING_API_KEY)
 
     try {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
@@ -125,7 +125,7 @@ io.on('connection', (socket) => {
             gameRounds[`${roomId}-${gameRooms[roomId].round}`] = {
                 lat, lon, country
             };
-            io.to(roomId).emit('roundStarted', {image, round:gameRooms[roomId].round});
+            io.to(roomId).emit('roundStarted', { image, round: gameRooms[roomId].round });
         } else {
             io.to(roomId).emit('error', 'Room not found');
         }
@@ -142,7 +142,7 @@ io.on('connection', (socket) => {
         if (gameRooms[room]) {
             gameRooms[room].answers.push(answer);
             const roundData = gameRounds[`${room}-${gameRooms[room].round}`];
-            console.log(roundData.country,answer.toLowerCase())
+            console.log(roundData.country, answer.toLowerCase())
             if (roundData.country === answer.toLowerCase()) {
                 const userInRoom = gameRooms[room].users.find(u => u.id === user.id);
                 if (userInRoom) {
@@ -151,9 +151,8 @@ io.on('connection', (socket) => {
                     io.to(room).emit('updateScores', { users: gameRooms[room].users });
                 }
             }
-            else
-            {
-                io.to(room).emit('wrongAnswer', {user,answer:roundData.country});
+            else {
+                io.to(room).emit('wrongAnswer', { user, answer: roundData.country });
             }
             if (gameRooms[room].answers.length === gameRooms[room].users.length) {
                 gameRooms[room].round += 1;
@@ -216,8 +215,8 @@ io.on('connection', (socket) => {
 });
 
 // Dummy HTTP Route for Uptime Monitoring
-app.get('/ping', (req, res) => {
-    res.status(200).send('Pong!');
+app.head('/', (req, res) => {
+    res.status(200).send();
 });
 
 // Start listening on the server
