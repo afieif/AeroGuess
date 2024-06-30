@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const socket = io('http://localhost:5000');
+const socket = io('https://maptitude.onrender.com');
 
 const App = () => {
   const [name, setName] = useState('');
