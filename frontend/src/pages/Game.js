@@ -4,13 +4,10 @@ import { useToast } from "../components/ui/use-toast"
 import { Button } from '../components/ui/button'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSocket } from '../contexts/SocketContext';
-import { updateGame, updateUsers, updateRound } from '../features/game/gameSlice'
+import { updateUsers, updateRound } from '../features/game/gameSlice'
 import { Card } from '../components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar'
 import { ChooseAnswer } from '../components/ChooseAnswer'
-import ReactImageMagnifier from 'simple-image-magnifier/react'
-import defaultSrc from "../assets/SAMPLE_API_IMAGE.jpg"
-import loadingSrc from "../assets/LOADING_IMAGE.png"
 import {
     Dialog,
     DialogContent,
@@ -25,7 +22,8 @@ const countries = data;
 
 
 export default function Game() {
-    const [image, setImage] = useState("")
+    const defaultSrc = "https://ucarecdn.com/bf2fcba2-4684-480b-b406-a29efcae348a/SAMPLE_API_IMAGE.jpg"
+    const loadingSrc = "https://ucarecdn.com/f1de16cc-688f-4bf8-b38e-ea5bef7bada3/LOADING_IMAGE.png"
     const game = useSelector(state => state.game)
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
