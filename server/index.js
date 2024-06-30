@@ -215,6 +215,13 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(5000, () => {
-    console.log('Socket.io server running on http://localhost:5000');
+// Dummy HTTP Route for Uptime Monitoring
+app.get('/ping', (req, res) => {
+    res.status(200).send('Pong!');
+});
+
+// Start listening on the server
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
