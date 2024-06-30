@@ -1,0 +1,12 @@
+{
+    "name": "maptitude",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "client": "cd frontend && npm start",
+      "server": "cd server && node index.js",
+      "build": "cd frontend && npm run build",
+      "start": "node server/index.js"
+    }
+  }
+  
