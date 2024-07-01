@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import React, { useState } from 'react';
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
-import { cn } from "../lib/utils"
-import { Button } from "../components/ui/button"
+import { cn } from "../lib/utils";
+import { Button } from "../components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -10,13 +10,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../components/ui/command"
+} from "../components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../components/ui/popover"
-import data from "../countries.json"
+} from "../components/ui/popover";
+import data from "../countries.json";
 
 const countries = data;
 
@@ -25,9 +25,13 @@ const processCountry = (country) => {
   return processedLabel.charAt(0).toUpperCase() + processedLabel.slice(1);
 }
 
+export function ChooseAnswer({ value, setValue }) {
+  const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-export function ChooseAnswer({value,setValue}) {
-  const [open, setOpen] = useState(false)
+  const filteredCountries = countries.filter((country) =>
+    country.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -46,11 +50,15 @@ export function ChooseAnswer({value,setValue}) {
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0">
         <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
+          <CommandInput
+            placeholder="Search..."
+            className="h-9"
+            onValueChange={(value) => setSearchQuery(value)}
+          />
           <CommandList>
             <CommandEmpty>No country found.</CommandEmpty>
             <CommandGroup>
-              {countries.map((country) => (
+              {filteredCountries.map((country) => (
                 <CommandItem
                   key={country.value}
                   value={country.label}
@@ -76,5 +84,5 @@ export function ChooseAnswer({value,setValue}) {
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
