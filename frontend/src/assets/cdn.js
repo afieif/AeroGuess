@@ -1,0 +1,2 @@
+export const defaultSrc = "https://ucarecdn.com/bf2fcba2-4684-480b-b406-a29efcae348a/SAMPLE_API_IMAGE.jpg"
+export const loadingSrc = "https://ucarecdn.com/f1de16cc-688f-4bf8-b38e-ea5bef7bada3/LOADING_IMAGE.png"

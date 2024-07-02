@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import Landing from './pages/Landing';
 import GameMode from './pages/GameMode';
 import reportWebVitals from './reportWebVitals';
@@ -16,22 +15,22 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <SocketProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/start" element={<GameMode />} />
-          <Route exact path='/' element={<ProtectedRoute />}>
-            <Route path="/solo" element={<SoloGame />} />
-            <Route path="/game" element={<Game />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </SocketProvider>
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <SocketProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/start" element={<GameMode />} />
+            <Route exact path='/' element={<ProtectedRoute />}>
+              <Route path="/solo" element={<SoloGame />} />
+              <Route path="/game" element={<Game />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </SocketProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
