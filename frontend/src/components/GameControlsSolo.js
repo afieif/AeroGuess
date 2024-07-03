@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { ChooseAnswer } from './ChooseAnswer'
 import { Button } from './ui/button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -29,6 +29,27 @@ export default function GameControlsSolo({ src, setSrc, answer, setAnswer }) {
         socket.emit('checkAnswer', { room: game.host, user, answer })
         setAnswer("")
     }
+
+    const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+    // Function to handle keyboard visibility changes
+    useLayoutEffect(() => {
+        const handleResize = () => {
+            // Check if keyboard is visible by comparing window.innerHeight and document.documentElement.clientHeight
+            setIsKeyboardVisible(window.innerHeight !== document.documentElement.clientHeight);
+        };
+
+        // Listen for resize events to detect keyboard visibility changes
+        window.addEventListener('resize', handleResize);
+
+        // Initial call to handleResize to set initial keyboard visibility state
+        handleResize();
+
+        // Clean up event listener when component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (!socket) return;
@@ -72,7 +93,7 @@ export default function GameControlsSolo({ src, setSrc, answer, setAnswer }) {
             }
             {
                 !isGuessed && game.round != 0 && game.round <= 5 &&
-                <div className='fixed bottom-0 left-0 w-full z-50 flex items-center justify-center p-4 space-x-4 bg-black'>
+                <div className='fixed-bottom-container' style={{ marginBottom: isKeyboardVisible ? '50vh' : 0 }}>
                     <ChooseAnswer setValue={setAnswer} value={answer} />
                     <Button disabled={!answer} onClick={submitAnswer}>Submit Guess</Button>
                 </div>
