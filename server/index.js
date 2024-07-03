@@ -10,7 +10,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
         origin: "*"
-    }
+    },
+    allowWebSocket: true
 });
 
 const cache = new NodeCache({ stdTTL: 0, checkperiod: 0 });
