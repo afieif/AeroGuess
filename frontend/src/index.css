@@ -9,3 +9,16 @@ body {
 .hide{
   display: none;
 }
+
+.fixed-bottom-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* Adjust padding as needed */
+  background-color: #000; /* Adjust background color */
+}
